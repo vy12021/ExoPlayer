@@ -33,6 +33,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -73,6 +74,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.CookieHandler;
@@ -352,7 +354,11 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     if (haveResumePosition) {
       player.seekTo(resumeWindow, resumePosition);
     }
-    player.prepare(mediaSource, !haveResumePosition, false);
+    mediaSource = new ExtractorMediaSource(Uri.parse(
+            "/storage/emulated/0/DCIM/doupai/1501746138456.mp4"),
+            mediaDataSourceFactory, new DefaultExtractorsFactory(),
+            mainHandler, eventLogger);
+    player.prepare(mediaSource, true, true);
     inErrorState = false;
     updateButtonVisibilities();
   }

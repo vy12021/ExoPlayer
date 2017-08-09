@@ -15,6 +15,7 @@
  */
 package com.google.android.exoplayer2.demo;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +60,7 @@ public class SampleChooserActivity extends Activity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.sample_chooser_activity);
+    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
     Intent intent = getIntent();
     String dataUri = intent.getDataString();
     String[] uris;

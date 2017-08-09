@@ -1021,11 +1021,15 @@ public class PlaybackControlView extends FrameLayout {
     @Override
     public void onScrubStart(TimeBar timeBar, long position) {
       removeCallbacks(hideAction);
-      scrubbing = true;
+      // scrubbing = true;
     }
 
     @Override
     public void onScrubMove(TimeBar timeBar, long position) {
+      scrubbing = false;
+      if (player != null) {
+        seekToTimeBarPosition(position);
+      }
       if (positionView != null) {
         positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
       }
