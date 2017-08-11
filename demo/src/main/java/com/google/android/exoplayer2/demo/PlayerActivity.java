@@ -355,7 +355,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
       player.seekTo(resumeWindow, resumePosition);
     }
     mediaSource = new ExtractorMediaSource(Uri.parse(
-            "/storage/emulated/0/DCIM/doupai/1501746138456.mp4"),
+            "/storage/emulated/0/DCIM/doupai/MV-幸福.mp4"),
             mediaDataSourceFactory, new DefaultExtractorsFactory(),
             mainHandler, eventLogger);
     player.prepare(mediaSource, true, true);

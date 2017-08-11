@@ -1021,14 +1021,25 @@ public class PlaybackControlView extends FrameLayout {
     @Override
     public void onScrubStart(TimeBar timeBar, long position) {
       removeCallbacks(hideAction);
-      // scrubbing = true;
+      player.setPlayWhenReady(false);
+      scrubbing = true;
     }
+
+    private boolean seekable = true;
+
+    private final Runnable SMOOTH_SEEK = new Runnable() {
+      @Override
+      public void run() {
+        seekable = true;
+      }
+    };
 
     @Override
     public void onScrubMove(TimeBar timeBar, long position) {
-      scrubbing = false;
-      if (player != null) {
+      if (seekable) {
+        seekable = false;
         seekToTimeBarPosition(position);
+        postDelayed(SMOOTH_SEEK, 150);
       }
       if (positionView != null) {
         positionView.setText(Util.getStringForTime(formatBuilder, formatter, position));
@@ -1040,6 +1051,7 @@ public class PlaybackControlView extends FrameLayout {
       scrubbing = false;
       if (!canceled && player != null) {
         seekToTimeBarPosition(position);
+        player.setPlayWhenReady(true);
       }
       hideAfterTimeout();
     }

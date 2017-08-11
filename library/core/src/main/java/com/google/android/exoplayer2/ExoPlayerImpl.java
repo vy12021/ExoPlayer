@@ -237,6 +237,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
       internalPlayer.seekTo(timeline, windowIndex, C.TIME_UNSET);
     } else {
       maskingWindowPositionMs = positionMs;
+      Log.e(TAG, "seekTo----------->" + positionMs);
       internalPlayer.seekTo(timeline, windowIndex, C.msToUs(positionMs));
       for (Player.EventListener listener : listeners) {
         listener.onPositionDiscontinuity();
