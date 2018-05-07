@@ -19,6 +19,8 @@ gen-external-apklibs
 .settings
 .checkstyle
 .cproject
+*.classpath
+.vscode
 
 # Gradle
 .gradle
@@ -39,6 +41,7 @@ proguard-project.txt
 
 # Other
 .DS_Store
+cmake-build-debug
 dist
 tmp
 

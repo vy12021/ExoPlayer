@@ -20,7 +20,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ParserException;
-import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener.EventDispatcher;
+import com.google.android.exoplayer2.source.MediaSourceEventListener.EventDispatcher;
 import com.google.android.exoplayer2.source.chunk.ChunkedTrackBlacklistUtil;
 import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory;
 import com.google.android.exoplayer2.source.hls.playlist.HlsMasterPlaylist.HlsUrl;
@@ -83,7 +83,6 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
      * @param mediaPlaylist The primary playlist new snapshot.
      */
     void onPrimaryPlaylistRefreshed(HlsMediaPlaylist mediaPlaylist);
-
   }
 
   /**
@@ -128,14 +127,16 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
   private HlsUrl primaryHlsUrl;
   private HlsMediaPlaylist primaryUrlSnapshot;
   private boolean isLive;
+  private long initialStartTimeUs;
 
   /**
    * @param initialPlaylistUri Uri for the initial playlist of the stream. Can refer a media
    *     playlist or a master playlist.
    * @param dataSourceFactory A factory for {@link DataSource} instances.
    * @param eventDispatcher A dispatcher to notify of events.
-   * @param minRetryCount The minimum number of times the load must be retried before blacklisting a
-   *     playlist.
+   * @param minRetryCount The minimum number of times loads must be retried before
+   *     {@link #maybeThrowPlaylistRefreshError(HlsUrl)} and
+   *     {@link #maybeThrowPrimaryPlaylistRefreshError()} propagate any loading errors.
    * @param primaryPlaylistListener A callback for the primary playlist change events.
    */
   public HlsPlaylistTracker(Uri initialPlaylistUri, HlsDataSourceFactory dataSourceFactory,
@@ -152,6 +153,7 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
     initialPlaylistLoader = new Loader("HlsPlaylistTracker:MasterPlaylist");
     playlistBundles = new IdentityHashMap<>();
     playlistRefreshHandler = new Handler();
+    initialStartTimeUs = C.TIME_UNSET;
   }
 
   /**
@@ -205,6 +207,11 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
       maybeSetPrimaryUrl(url);
     }
     return snapshot;
+  }
+
+  /** Returns the start time of the first loaded primary playlist. */
+  public long getInitialStartTimeUs() {
+    return initialStartTimeUs;
   }
 
   /**
@@ -370,6 +377,7 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
       if (primaryUrlSnapshot == null) {
         // This is the first primary url snapshot.
         isLive = !newSnapshot.hasEndTag;
+        initialStartTimeUs = newSnapshot.startTimeUs;
       }
       primaryUrlSnapshot = newSnapshot;
       primaryPlaylistListener.onPrimaryPlaylistRefreshed(newSnapshot);
@@ -449,7 +457,7 @@ public final class HlsPlaylistTracker implements Loader.Callback<ParsingLoadable
 
   private static Segment getFirstOldOverlappingSegment(HlsMediaPlaylist oldPlaylist,
       HlsMediaPlaylist loadedPlaylist) {
-    int mediaSequenceOffset = loadedPlaylist.mediaSequence - oldPlaylist.mediaSequence;
+    int mediaSequenceOffset = (int) (loadedPlaylist.mediaSequence - oldPlaylist.mediaSequence);
     List<Segment> oldSegments = oldPlaylist.segments;
     return mediaSequenceOffset < oldSegments.size() ? oldSegments.get(mediaSequenceOffset) : null;
   }

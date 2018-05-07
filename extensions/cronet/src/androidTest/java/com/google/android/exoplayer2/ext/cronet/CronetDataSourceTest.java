@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.exoplayer2.ext.cronet;
+package com.google.android.exoplayer2x.ext.cronet;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -38,13 +38,13 @@ import android.net.Uri;
 import android.os.ConditionVariable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.upstream.DataSpec;
-import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.upstream.HttpDataSource.HttpDataSourceException;
-import com.google.android.exoplayer2.upstream.TransferListener;
-import com.google.android.exoplayer2.util.Clock;
-import com.google.android.exoplayer2.util.Predicate;
+import com.google.android.exoplayer2x.C;
+import com.google.android.exoplayer2x.upstream.DataSpec;
+import com.google.android.exoplayer2x.upstream.HttpDataSource;
+import com.google.android.exoplayer2x.upstream.HttpDataSource.HttpDataSourceException;
+import com.google.android.exoplayer2x.upstream.TransferListener;
+import com.google.android.exoplayer2x.util.Clock;
+import com.google.android.exoplayer2x.util.Predicate;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;

@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.exoplayer2.ext.cronet;
+package com.google.android.exoplayer2x.ext.cronet;
 
 import android.net.Uri;
 import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.util.Log;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
-import com.google.android.exoplayer2.upstream.DataSourceException;
-import com.google.android.exoplayer2.upstream.DataSpec;
-import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.upstream.TransferListener;
-import com.google.android.exoplayer2.util.Assertions;
-import com.google.android.exoplayer2.util.Clock;
-import com.google.android.exoplayer2.util.Predicate;
+import com.google.android.exoplayer2x.C;
+import com.google.android.exoplayer2x.ExoPlayerLibraryInfo;
+import com.google.android.exoplayer2x.upstream.DataSourceException;
+import com.google.android.exoplayer2x.upstream.DataSpec;
+import com.google.android.exoplayer2x.upstream.HttpDataSource;
+import com.google.android.exoplayer2x.upstream.TransferListener;
+import com.google.android.exoplayer2x.util.Assertions;
+import com.google.android.exoplayer2x.util.Clock;
+import com.google.android.exoplayer2x.util.Predicate;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;

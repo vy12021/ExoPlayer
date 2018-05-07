@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.exoplayer2.ext.cronet;
+package com.google.android.exoplayer2x.ext.cronet;
 
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.upstream.HttpDataSource;
-import com.google.android.exoplayer2.upstream.HttpDataSource.BaseFactory;
-import com.google.android.exoplayer2.upstream.HttpDataSource.Factory;
-import com.google.android.exoplayer2.upstream.HttpDataSource.InvalidContentTypeException;
-import com.google.android.exoplayer2.upstream.TransferListener;
-import com.google.android.exoplayer2.util.Predicate;
+import com.google.android.exoplayer2x.upstream.DataSource;
+import com.google.android.exoplayer2x.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2x.upstream.HttpDataSource;
+import com.google.android.exoplayer2x.upstream.HttpDataSource.BaseFactory;
+import com.google.android.exoplayer2x.upstream.HttpDataSource.Factory;
+import com.google.android.exoplayer2x.upstream.HttpDataSource.InvalidContentTypeException;
+import com.google.android.exoplayer2x.upstream.TransferListener;
+import com.google.android.exoplayer2x.util.Predicate;
 import java.util.concurrent.Executor;
 import org.chromium.net.CronetEngine;
 
