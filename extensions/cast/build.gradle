@@ -15,6 +15,14 @@ apply from: '../../constants.gradle'
 apply plugin: 'com.android.library'
 
 android {
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        consumerProguardFiles 'proguard-rules.txt'
+    }
     sourceSets.main {
         jniLibs.srcDirs = ['jniLibs']
     }
@@ -22,8 +30,8 @@ android {
 
 dependencies {
     api 'com.google.android.gms:play-services-cast-framework:' + playServicesLibraryVersion
-    implementation project(modulePrefix + 'exoplayer-core')
-    implementation project(modulePrefix + 'exoplayer-ui')
+    implementation project(modulePrefix + 'library-core')
+    implementation project(modulePrefix + 'library-ui')
     testImplementation project(modulePrefix + 'testutils')
     testImplementation 'junit:junit:' + junitVersion
     testImplementation 'org.mockito:mockito-core:' + mockitoVersion

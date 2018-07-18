@@ -16,6 +16,15 @@ apply plugin: 'com.android.library'
 
 android {
 
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        consumerProguardFiles 'proguard-rules.txt'
+    }
+
     sourceSets.main {
         jniLibs.srcDirs = ['jniLibs']
     }
@@ -23,7 +32,7 @@ android {
 }
 
 dependencies {
-    compile project(modulePrefix + 'exoplayer-core')
+    compile project(modulePrefix + 'library-core')
     compile files('libs/cronet_api.jar')
     compile files('libs/cronet_impl_common_java.jar')
     compile files('libs/cronet_impl_native_java.jar')

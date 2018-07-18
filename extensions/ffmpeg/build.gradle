@@ -15,6 +15,14 @@ apply from: '../../constants.gradle'
 apply plugin: 'com.android.library'
 
 android {
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        consumerProguardFiles 'proguard-rules.txt'
+    }
     sourceSets.main {
         jniLibs.srcDir 'src/main/libs'
         jni.srcDirs = [] // Disable the automatic ndk-build call by Android Studio.
@@ -22,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation project(modulePrefix + 'exoplayer-core')
+    implementation project(modulePrefix + 'library-core')
 }
 
 ext {
