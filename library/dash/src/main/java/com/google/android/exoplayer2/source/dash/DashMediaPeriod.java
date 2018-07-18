@@ -16,6 +16,7 @@
 package com.google.android.exoplayer2.source.dash;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.util.Pair;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -72,13 +73,14 @@ import java.util.List;
   private final IdentityHashMap<ChunkSampleStream<DashChunkSource>, PlayerTrackEmsgHandler>
       trackEmsgHandlerBySampleStream;
 
-  private Callback callback;
+  private @Nullable Callback callback;
   private ChunkSampleStream<DashChunkSource>[] sampleStreams;
   private EventSampleStream[] eventSampleStreams;
   private SequenceableLoader compositeSequenceableLoader;
   private DashManifest manifest;
   private int periodIndex;
   private List<EventStream> eventStreams;
+  private boolean notifiedReadingStarted;
 
   public DashMediaPeriod(
       int id,
@@ -114,6 +116,7 @@ import java.util.List;
         eventStreams);
     trackGroups = result.first;
     trackGroupInfos = result.second;
+    eventDispatcher.mediaPeriodCreated();
   }
 
   /**
@@ -148,6 +151,8 @@ import java.util.List;
     for (ChunkSampleStream<DashChunkSource> sampleStream : sampleStreams) {
       sampleStream.release(this);
     }
+    callback = null;
+    eventDispatcher.mediaPeriodReleased();
   }
 
   // ChunkSampleStream.ReleaseCallback implementation.
@@ -325,6 +330,10 @@ import java.util.List;
 
   @Override
   public long readDiscontinuity() {
+    if (!notifiedReadingStarted) {
+      eventDispatcher.readingStarted();
+      notifiedReadingStarted = true;
+    }
     return C.TIME_UNSET;
   }
 
