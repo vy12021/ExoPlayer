@@ -19,6 +19,8 @@ gen-external-apklibs
 .settings
 .checkstyle
 .cproject
+*.classpath
+.vscode
 
 # Gradle
 .gradle

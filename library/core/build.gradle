@@ -76,4 +76,5 @@ ext {
     releaseArtifact = 'exoplayer-core'
     releaseDescription = 'The ExoPlayer library core module.'
 }
-apply from: '../../publish.gradle'
+// apply from: '../../publish.gradle'
+apply from: '../../gradle-mvn-push.gradle'
